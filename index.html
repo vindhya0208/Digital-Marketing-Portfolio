@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ch. Vindhya | Digital Marketing Portfolio</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Elegant Pairings -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            cream: '#F9F6F0',      // Bone Beige (Background)
+                            peach: '#EADDCA',      // Almond/Beige Tint
+                            gold: '#722F37',       // Merlot/Burgundy (Primary Accent)
+                            dark: '#2A1B18',       // Dark Coffee (Text)
+                            accent: '#C5A059'      // Antique Gold (Secondary)
+                        }
+                    },
+                    backgroundImage: {
+                        'glass-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(249, 246, 240, 0.6) 100%)',
+                        'peach-blob': 'radial-gradient(circle, rgba(197, 160, 89, 0.3) 0%, rgba(255,255,255,0) 70%)', // Gold
+                        'gold-blob': 'radial-gradient(circle, rgba(114, 47, 55, 0.25) 0%, rgba(255,255,255,0) 70%)'   // Burgundy
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F9F6F0;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(197, 160, 89, 0.2) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(114, 47, 55, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(197, 160, 89, 0.2) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(114, 47, 55, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            /* Warm luxury glow */
+            box-shadow:
+                inset 0 0 20px rgba(255, 255, 255, 0.8),
+                0 20px 40px -10px rgba(114, 47, 55, 0.15);
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(245, 241, 230, 0.8));
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            /* Subtle gold border */
+            box-shadow:
+                inset 0 0 15px rgba(255, 255, 255, 0.6),
+                0 10px 20px -5px rgba(42, 27, 24, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Lustrous shine effect on hover */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            transition: 0.6s;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow:
+                inset 0 0 20px rgba(255, 255, 255, 0.8),
+                0 20px 30px -10px rgba(114, 47, 55, 0.2);
+            border-color: #722F37;
+            /* Burgundy border on hover */
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #C5A059, #722F37, #C5A059);
+            /* Gold to Burgundy */
+            border-radius: 4px;
+        }
+
+        /* Burgundy Button Style */
+        .btn-burgundy {
+            background: linear-gradient(135deg, #722F37 0%, #903C46 50%, #5D242C 100%);
+            background-size: 200% auto;
+            color: #FFFFFF;
+            transition: 0.5s;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(114, 47, 55, 0.3);
+        }
+
+        .btn-burgundy:hover {
+            background-position: right center;
+            box-shadow: 0 10px 25px rgba(114, 47, 55, 0.4);
+            border-color: #C5A059;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-down {
+            animation: fadeInDown 1s ease-out forwards;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(0.5deg);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .letter {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Ensure the text color is inherited correctly */
+            color: inherit;
+        }
+
+        .letter.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass-panel-premium {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            box-shadow:
+                0 25px 50px -12px rgba(114, 47, 55, 0.2),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            transition: border-color 0.5s ease;
+        }
+
+        .glass-panel-premium:hover {
+            border-color: rgba(114, 47, 55, 0.6);
+        }
+
+        .animation-delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .animation-delay-400 {
+            animation-delay: 0.4s;
+        }
+
+        .animation-delay-600 {
+            animation-delay: 0.6s;
+        }
+
+        .text-maroon {
+            color: #800000;
+        }
+
+        /* Promotion Platforms Premium Styles */
+        .platforms-mesh {
+            background-color: #1a0f0e;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(114, 47, 55, 0.4) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(197, 160, 89, 0.2) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(42, 27, 24, 0.8) 0px, transparent 100%);
+        }
+
+        .platform-card-premium {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .platform-card-premium:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(197, 160, 89, 0.5);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow:
+                0 30px 60px -12px rgba(0, 0, 0, 0.7),
+                0 0 20px rgba(114, 47, 55, 0.3);
+        }
+
+        .platform-icon-box {
+            position: relative;
+            z-index: 1;
+        }
+
+        .platform-icon-box::after {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            background: inherit;
+            filter: blur(15px);
+            opacity: 0.4;
+            z-index: -1;
+            border-radius: inherit;
+        }
+    </style>
+</head>
+
+<body class="text-brand-dark antialiased selection:bg-brand-gold selection:text-white">
+
+    <!-- GLASSMORPHISM NAVBAR -->
+    <nav
+        class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/70 backdrop-blur-md border-b border-brand-accent/30 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Brand -->
+            <a href="#home"
+                class="text-xl font-serif font-bold text-brand-dark tracking-tight hover:text-brand-gold transition">
+                Vindhya<span class="text-brand-gold">.</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <div
+                class="hidden md:flex items-center space-x-8 text-xs font-bold tracking-widest uppercase text-brand-dark/70">
+                <a href="#about" class="hover:text-brand-gold transition duration-300">About</a>
+                <a href="#project" class="hover:text-brand-gold transition duration-300">Project</a>
+                <a href="#learnings" class="hover:text-brand-gold transition duration-300">Learnings</a>
+                <a href="#skills" class="hover:text-brand-gold transition duration-300">Skills</a>
+                <a href="#tools" class="hover:text-brand-gold transition duration-300">Tools</a>
+            </div>
+
+            <!-- CTA Button -->
+            <a href="#contact"
+                class="hidden md:inline-block px-6 py-2 btn-burgundy text-[10px] font-bold tracking-widest uppercase rounded-full transform hover:-translate-y-0.5">
+                Let's Connect
+            </a>
+
+            <!-- Mobile Menu Icon (Placeholder) -->
+            <button class="md:hidden text-brand-dark">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 1. NAME & ROLE (Hero Section) -->
+    <header id="home" class="relative min-h-[95vh] flex flex-col justify-center items-center text-center px-6 pt-24">
+
+        <!-- Decorative subtle aura -->
+        <div class="absolute w-[600px] h-[600px] bg-brand-peach/20 rounded-full blur-[120px] -z-10 animate-pulse">
+        </div>
+
+        <div class="relative z-10 glass-panel-premium p-10 md:p-20 rounded-[2.5rem] max-w-4xl animate-float">
+            <span
+                class="inline-block py-2 px-6 border border-brand-gold/30 rounded-full text-brand-gold text-[10px] font-bold tracking-[0.3em] uppercase mb-10 bg-white/40 backdrop-blur-sm shadow-sm animate-fade-in-up">
+                Portfolio 2024
+            </span>
+
+            <!-- Removed text-shimmer class to ensure visibility -->
+            <h1 id="hero-name" class="text-7xl md:text-9xl font-serif font-bold mb-8 text-[#722F37] drop-shadow-md">
+                Ch. Vindhya
+            </h1>
+
+            <h2
+                class="text-2xl md:text-4xl text-[#5D242C] font-light mb-10 tracking-tight animate-fade-in-up animation-delay-400">
+                Digital Marketing Enthusiast
+            </h2>
+
+            <div
+                class="w-20 h-0.5 bg-gradient-to-r from-brand-gold via-brand-accent to-brand-gold mx-auto mb-10 rounded-full animate-fade-in-up animation-delay-600">
+            </div>
+
+            <p
+                class="text-xl text-brand-dark/70 max-w-2xl mx-auto italic font-serif font-medium leading-relaxed animate-fade-in-up animation-delay-600">
+                "Passionate Digital Marketer skilled in SEO, SMM, and Branding, dedicated to <br
+                    class="hidden md:block">
+                crafting effective strategies that elevate digital presence."
+            </p>
+        </div>
+    </header>
+
+    <!-- 2. ABOUT ME -->
+    <section id="about" class="py-24 px-6 scroll-mt-20">
+        <div class="container mx-auto max-w-5xl">
+            <div class="text-center">
+                <h2 class="text-4xl font-serif font-bold section-title">About Me</h2>
+            </div>
+            <!-- Glass Card -->
+            <div
+                class="glass-panel p-10 md:p-14 rounded-2xl text-center md:text-left flex flex-col md:flex-row gap-12 items-center">
+                <!-- Placeholder for Profile Image -->
+                <div
+                    class="w-48 h-48 shrink-0 bg-brand-peach rounded-full overflow-hidden border-4 border-white shadow-xl shadow-brand-gold/10 relative group ring-1 ring-brand-accent/50">
+                    <div class="absolute inset-0 bg-brand-gold/5 group-hover:bg-transparent transition"></div>
+                    <img src="https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Profile"
+                        class="w-full h-full object-cover sepia-[20%] group-hover:sepia-0 transition duration-500">
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-brand-dark/90 leading-relaxed text-lg">
+                        I am a Computer Science student bridging the gap between technical web development and strategic
+                        online promotion. My journey focuses on building user-friendly websites and executing
+                        data-driven marketing strategies to drive engagement and brand visibility.
+                    </p>
+                    <p class="text-brand-dark/90 leading-relaxed text-lg">
+                        I am a quick learner with a detail-oriented approach, currently exploring how SEO, Content
+                        Marketing, and Social Media strategies can transform business ideas into digital reality.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. PROJECT IN DM -->
+    <section id="project" class="py-24 px-6 scroll-mt-20">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold section-title">Project in Digital Marketing</h2>
+                <p class="text-brand-dark/70 mt-4 font-medium tracking-wide">Integrated Marketing Campaign & Web
+                    Development</p>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-8 md:p-12">
+                <div class="grid md:grid-cols-12 gap-12 items-center">
+                    <!-- Project Details -->
+                    <div class="md:col-span-5 space-y-8">
+                        <div>
+                            <h3 class="text-4xl font-serif font-bold text-brand-gold mb-3">iLUNARA Skincare</h3>
+                            <p class="text-brand-dark/90 leading-relaxed">
+                                iLUNARA is a premium skincare brand concept. I designed and developed the website to
+                                serve as the central hub for a comprehensive digital marketing campaign. The project
+                                demonstrates my ability to integrate web development with promotional strategies.
+                            </p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4 p-4 glass-card rounded-xl">
+                                <div class="bg-brand-peach p-2 rounded-full text-brand-gold">
+                                    <i data-lucide="palette" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-sm uppercase tracking-wide text-brand-dark">Brand Identity
+                                    </h4>
+                                    <p class="text-sm text-brand-dark/70">Luxury Purple & Gold aesthetic to evoke
+                                        elegance.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 glass-card rounded-xl">
+                                <div class="bg-brand-peach p-2 rounded-full text-brand-gold">
+                                    <i data-lucide="users" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-sm uppercase tracking-wide text-brand-dark">Segmentation
+                                    </h4>
+                                    <p class="text-sm text-brand-dark/70">User paths for Skin Types & Concerns (UX
+                                        Strategy).</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 glass-card rounded-xl">
+                                <div class="bg-brand-peach p-2 rounded-full text-brand-gold">
+                                    <i data-lucide="mail" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-sm uppercase tracking-wide text-brand-dark">Lead Gen</h4>
+                                    <p class="text-sm text-brand-dark/70">Newsletter subscription & Trust signals in
+                                        Footer.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="https://vindhya0208.github.io/iLUNARA.SKINCARE/" target="_blank"
+                            class="inline-flex items-center gap-2 px-8 py-4 btn-burgundy font-bold tracking-widest uppercase text-xs rounded-full transform hover:-translate-y-1">
+                            Visit Live Website <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+
+                    <!-- Visuals (Screenshots) -->
+                    <div class="md:col-span-7 grid gap-6">
+                        <div
+                            class="rounded-xl overflow-hidden border border-brand-accent/50 shadow-2xl shadow-brand-gold/10 transform hover:scale-[1.01] transition duration-500">
+                            <img src="ilunara_hero_new.jpg"
+                                onerror="this.src='https://images.unsplash.com/photo-1556228720-19150573c9f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'"
+                                alt="iLunara Hero" class="w-full h-auto">
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div
+                                class="rounded-xl overflow-hidden border border-brand-accent/50 shadow-xl shadow-brand-accent/10 transform hover:scale-[1.02] transition duration-500">
+                                <img src="ilunara_skin_concerns.jpg"
+                                    onerror="this.src='https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"
+                                    alt="Skin Concerns" class="w-full h-auto">
+                            </div>
+                            <div
+                                class="rounded-xl overflow-hidden border border-brand-accent/50 shadow-xl shadow-brand-accent/10 transform hover:scale-[1.02] transition duration-500">
+                                <img src="ilunara_footer.jpg"
+                                    onerror="this.src='https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"
+                                    alt="Footer" class="w-full h-auto">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. WHAT WE HAVE LEARNED (Syllabus) -->
+    <section id="learnings" class="py-24 px-6 scroll-mt-20">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold section-title text-brand-dark">What I Have Learned</h2>
+                <p class="text-brand-dark/70 mt-4 font-medium">Key Modules & Takeaways</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Module 1 -->
+                <div
+                    class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all">
+                    <div
+                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
+                        01</div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Fundamentals & SEO</h3>
+                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
+                        <li>Marketing Funnel & Digital Disruption</li>
+                        <li>On-Page SEO (Keywords, Meta Tags)</li>
+                        <li>Off-Page SEO (Backlinking, Quality)</li>
+                        <li>Technical SEO (Robots.txt, Sitemaps)</li>
+                    </ul>
+                </div>
+
+                <!-- Module 2 -->
+                <div
+                    class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all">
+                    <div
+                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
+                        02</div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Google Algorithms</h3>
+                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
+                        <li>Panda, Penguin, Hummingbird Updates</li>
+                        <li>RankBrain, BERT, Core Web Vitals</li>
+                        <li>E-E-A-T Principles</li>
+                        <li>Spam Updates & Content Quality</li>
+                    </ul>
+                </div>
+
+                <!-- Module 3 -->
+                <div
+                    class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all">
+                    <div
+                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
+                        03</div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Performance Marketing</h3>
+                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
+                        <li>Google Analytics (GA4) Metrics</li>
+                        <li>Google Ads Structure & Bidding</li>
+                        <li>Quality Score & Ad Rank</li>
+                        <li>PPC Strategy (CPC, CPA, CPM)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-8 mt-8">
+                <!-- Module 4 -->
+                <div
+                    class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.35rem)]">
+                    <div
+                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
+                        04</div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Social Media (SMM)</h3>
+                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
+                        <li>Facebook & Instagram Algorithms</li>
+                        <li>LinkedIn B2B Strategies</li>
+                        <li>3H Framework (Hero, Hub, Hygiene)</li>
+                        <li>Content Calendars & Audits</li>
+                    </ul>
+                </div>
+
+                <!-- Module 5 -->
+                <div
+                    class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.35rem)]">
+                    <div
+                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
+                        05</div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Integrated Marketing</h3>
+                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
+                        <li>IMC Planning Process</li>
+                        <li>Email Marketing (Segmentation)</li>
+                        <li>Content Marketing Strategy</li>
+                        <li>Channel Mix & Budgeting</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SKILLS IN DM -->
+    <section id="skills" class="py-24 px-6 scroll-mt-20">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold section-title text-brand-dark">Skills in DM</h2>
+            </div>
+
+            <div class="glass-panel p-10 rounded-3xl space-y-10">
+                <!-- Skill Item -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-bold text-brand-dark">Website Creation & Designing</span>
+                        <span class="text-brand-gold font-serif">95%</span>
+                    </div>
+                    <div class="h-4 bg-white/60 w-full rounded-full overflow-hidden border border-white/80">
+                        <div
+                            class="h-full bg-gradient-to-r from-brand-gold to-brand-accent w-[95%] shadow-[0_0_15px_rgba(114,47,55,0.4)]">
+                        </div>
+                    </div>
+                </div>
+                <!-- Skill Item -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-bold text-brand-dark">Social Media Marketing (SMM)</span>
+                        <span class="text-brand-gold font-serif">90%</span>
+                    </div>
+                    <div class="h-4 bg-white/60 w-full rounded-full overflow-hidden border border-white/80">
+                        <div
+                            class="h-full bg-gradient-to-r from-brand-gold to-brand-accent w-[90%] shadow-[0_0_15px_rgba(114,47,55,0.4)]">
+                        </div>
+                    </div>
+                </div>
+                <!-- Skill Item -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-bold text-brand-dark">Content Creation & Branding</span>
+                        <span class="text-brand-gold font-serif">85%</span>
+                    </div>
+                    <div class="h-4 bg-white/60 w-full rounded-full overflow-hidden border border-white/80">
+                        <div
+                            class="h-full bg-gradient-to-r from-brand-gold to-brand-accent w-[85%] shadow-[0_0_15px_rgba(114,47,55,0.4)]">
+                        </div>
+                    </div>
+                </div>
+                <!-- Skill Item -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-bold text-brand-dark">SEO Strategy (On-Page & Off-Page)</span>
+                        <span class="text-brand-gold font-serif">88%</span>
+                    </div>
+                    <div class="h-4 bg-white/60 w-full rounded-full overflow-hidden border border-white/80">
+                        <div
+                            class="h-full bg-gradient-to-r from-brand-gold to-brand-accent w-[88%] shadow-[0_0_15px_rgba(114,47,55,0.4)]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. TOOLS USED -->
+    <section id="tools" class="py-24 px-6 scroll-mt-20">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-4xl font-serif font-bold section-title text-brand-dark">Tools Used in DM</h2>
+
+            <div class="flex flex-wrap justify-center gap-6 mt-10">
+                <!-- AI & Innovation -->
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="zap" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">Antigravity</span>
+                </div>
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="sparkles" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">Gemini</span>
+                </div>
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="message-square" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">ChatGPT</span>
+                </div>
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="brain-circuit" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">Deepseek</span>
+                </div>
+
+                <!-- SEO & Analytics -->
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="database" class="text-brand-gold"></i> <span class="font-bold text-brand-dark">SEO
+                        Khazana</span>
+                </div>
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="search" class="text-brand-gold"></i> <span class="font-bold text-brand-dark">Google
+                        Keyword Planner</span>
+                </div>
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="bar-chart-2" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">Google Analytics (GA4)</span>
+                </div>
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="line-chart" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">Google Search Console</span>
+                </div>
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="trending-up" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">SEM Rush</span>
+                </div>
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="anchor" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">Ahrefs</span>
+                </div>
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="shield-check" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">Moz</span>
+                </div>
+
+                <!-- Marketing & Social -->
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="layers" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">Buffer</span>
+                </div>
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="calendar" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">Later</span>
+                </div>
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="mail" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">Mailchimp</span>
+                </div>
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="pen-tool" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">Grammarly</span>
+                </div>
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="globe" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">WordPress</span>
+                </div>
+                <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
+                    <i data-lucide="layout" class="text-brand-gold"></i> <span
+                        class="font-bold text-brand-dark">Canva</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. PROMOTION PLATFORMS -->
+    <section id="platforms" class="py-24 px-6 platforms-mesh text-white scroll-mt-20 relative overflow-hidden">
+        <div class="container mx-auto max-w-6xl text-center relative z-10">
+            <h2 class="text-5xl font-serif font-bold mb-6 text-white drop-shadow-md">Professional Promotion</h2>
+            <div
+                class="w-24 h-1 bg-gradient-to-r from-brand-gold via-brand-accent to-brand-gold mx-auto mb-16 rounded-full opacity-80">
+            </div>
+
+            <p class="text-brand-peach/80 mb-16 font-light max-w-2xl mx-auto text-lg leading-relaxed">
+                Strategic brand presence established across premium social ecosystems for the <span
+                    class="text-brand-accent font-medium">iLUNARA</span> campaign.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/ilunara.skincare.official?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                    target="_blank" rel="noopener noreferrer"
+                    class="group block p-10 platform-card-premium rounded-[2rem] hover:z-10 animate-fade-in-up">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:rotate-12 transition-transform duration-500 shadow-xl platform-icon-box">
+                        <i data-lucide="instagram" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3
+                        class="font-serif font-bold text-2xl mb-2 tracking-tight group-hover:text-brand-accent transition">
+                        Instagram</h3>
+                    <p class="text-sm text-brand-peach/60 font-medium tracking-widest uppercase">@ilunara.official</p>
+                    <div
+                        class="mt-6 h-0.5 w-0 group-hover:w-full bg-brand-accent mx-auto transition-all duration-500 opacity-50">
+                    </div>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/share/1DQjv4Zm4b/" target="_blank" rel="noopener noreferrer"
+                    class="group block p-10 platform-card-premium rounded-[2rem] hover:z-10 animate-fade-in-up animation-delay-200">
+                    <div
+                        class="w-16 h-16 bg-[#1877F2] rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:-rotate-12 transition-transform duration-500 shadow-xl platform-icon-box">
+                        <i data-lucide="facebook" class="w-8 h-8 text-white fill-white"></i>
+                    </div>
+                    <h3
+                        class="font-serif font-bold text-2xl mb-2 tracking-tight group-hover:text-brand-accent transition">
+                        Facebook</h3>
+                    <p class="text-sm text-brand-peach/60 font-medium tracking-widest uppercase">iLUNARA.Skincare</p>
+                    <div
+                        class="mt-6 h-0.5 w-0 group-hover:w-full bg-brand-accent mx-auto transition-all duration-500 opacity-50">
+                    </div>
+                </a>
+
+                <!-- X / Twitter -->
+                <a href="https://x.com/VindhyaC51640" target="_blank" rel="noopener noreferrer"
+                    class="group block p-10 platform-card-premium rounded-[2rem] hover:z-10 animate-fade-in-up animation-delay-400">
+                    <div
+                        class="w-16 h-16 bg-black border border-white/20 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:rotate-12 transition-transform duration-500 shadow-xl platform-icon-box">
+                        <span class="font-bold text-2xl text-white">X</span>
+                    </div>
+                    <h3
+                        class="font-serif font-bold text-2xl mb-2 tracking-tight group-hover:text-brand-accent transition">
+                        X (Twitter)</h3>
+                    <p class="text-sm text-brand-peach/60 font-medium tracking-widest uppercase">@iLUNARA_official</p>
+                    <div
+                        class="mt-6 h-0.5 w-0 group-hover:w-full bg-brand-accent mx-auto transition-all duration-500 opacity-50">
+                    </div>
+                </a>
+
+                <!-- YouTube -->
+                <a href="https://youtube.com/@ilunara-skincare?si=Kv2a4AST1nNa42Qx" target="_blank"
+                    rel="noopener noreferrer"
+                    class="group block p-10 platform-card-premium rounded-[2rem] hover:z-10 animate-fade-in-up animation-delay-600">
+                    <div
+                        class="w-16 h-16 bg-[#FF0000] rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:-rotate-12 transition-transform duration-500 shadow-xl platform-icon-box">
+                        <svg viewBox="0 0 24 24" class="w-8 h-8 fill-white" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505a3.017 3.017 0 0 0-2.122 2.136C0 8.055 0 12 0 12s0 3.945.501 5.814a3.017 3.017 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.945 24 12 24 12s0-3.945-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg>
+                    </div>
+                    <h3
+                        class="font-serif font-bold text-2xl mb-2 tracking-tight group-hover:text-brand-accent transition">
+                        YouTube</h3>
+                    <p class="text-sm text-brand-peach/60 font-medium tracking-widest uppercase">iLUNARA Brand</p>
+                    <div
+                        class="mt-6 h-0.5 w-0 group-hover:w-full bg-brand-accent mx-auto transition-all duration-500 opacity-50">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. LET'S CONNECT -->
+    <footer id="contact" class="py-24 px-6 text-center scroll-mt-20">
+        <div class="glass-panel max-w-2xl mx-auto rounded-3xl p-12 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-gold to-brand-accent"></div>
+            <h2 class="text-5xl font-serif font-bold mb-8 text-brand-dark">Let's Connect</h2>
+            <p class="text-brand-dark/80 text-lg mb-12">
+                I am ready to bring my digital marketing skills to your next project.
+            </p>
+
+            <div class="space-y-6">
+                <a href="mailto:ilunara.skincare@gmail.com"
+                    class="flex items-center justify-center gap-3 text-lg font-medium hover:text-brand-gold transition p-4 glass-card rounded-xl">
+                    <i data-lucide="mail" class="text-brand-gold"></i> ilunara.skincare@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/vindhya-cheepulla"
+                    class="flex items-center justify-center gap-3 text-lg font-medium hover:text-brand-gold transition p-4 glass-card rounded-xl">
+                    <i data-lucide="linkedin" class="text-brand-gold"></i> Vindhya Cheepulla
+                </a>
+            </div>
+
+            <div class="mt-16 text-xs text-brand-dark/50 uppercase tracking-widest font-bold">
+                &copy; 2026 Ch. Vindhya. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Icons & Premium Animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Icons
+            lucide.createIcons();
+
+            // Premium Name Reveal Logic (Robust Fix)
+            const heroName = document.getElementById('hero-name');
+            if (heroName) {
+                const text = heroName.textContent.trim();
+                heroName.innerHTML = ''; // Clear text
+
+                // Create document fragment for better performance
+                const fragment = document.createDocumentFragment();
+
+                [...text].forEach((char, i) => {
+                    const span = document.createElement('span');
+                    span.textContent = char === ' ' ? '\u00A0' : char;
+                    span.className = 'letter';
+                    // Stagger the animation delay
+                    span.style.transitionDelay = `${(i * 0.05) + 0.1}s`;
+                    fragment.appendChild(span);
+                });
+
+                heroName.appendChild(fragment);
+
+                // Force a browser reflow to ensure the initial 'opacity: 0' state is registered
+                void heroName.offsetWidth;
+
+                // Add the revealed class to trigger the CSS transition
+                // Using requestAnimationFrame to synchronize with browser paint
+                requestAnimationFrame(() => {
+                    const letters = heroName.querySelectorAll('.letter');
+                    letters.forEach(letter => {
+                        letter.classList.add('revealed');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

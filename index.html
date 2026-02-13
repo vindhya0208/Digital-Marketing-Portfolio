@@ -46,14 +46,142 @@
         }
     </script>
     <style>
+        /* --- NEW ANIMATION STYLES START --- */
+
+        /* 1. Page Load Reveal Curtain */
+        #loader-curtain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #FFFFFF;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            pointer-events: all;
+        }
+
+        #loader-curtain .curtain-panel {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            background: #722F37;
+            z-index: 10001;
+        }
+
+        #loader-curtain .curtain-left {
+            left: 0;
+        }
+
+        #loader-curtain .curtain-right {
+            right: 0;
+        }
+
+        #loader-curtain .loader-text {
+            position: relative;
+            z-index: 10002;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #FFFFFF;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            opacity: 0;
+        }
+
+        /* 2. Animated Moving Gradient Background */
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        #luxury-bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(-45deg, #F9F6F0, #EADDCA, #F5F1E6, #FFFFFF);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* 3. Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #C5A059, #722F37);
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+            box-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
+        }
+
+        /* 4. Parallax Background Layer */
+        #luxury-bg {
+            position: fixed;
+            top: -10%;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            /* Taller than viewport for movement */
+            z-index: -1;
+            background-color: transparent;
+            will-change: transform;
+            pointer-events: none;
+        }
+
+        /* 5. Scroll Reveal Classes */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 6. 3D Tilt Prep */
+        .glass-card {
+            /* Existing styles below, adding transform props */
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            will-change: transform;
+        }
+
+        /* --- NEW ANIMATION STYLES END --- */
+
         body {
-            background-color: #F9F6F0;
-            background-image:
-                radial-gradient(at 0% 0%, rgba(197, 160, 89, 0.2) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(114, 47, 55, 0.1) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(197, 160, 89, 0.2) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, rgba(114, 47, 55, 0.1) 0px, transparent 50%);
-            background-attachment: fixed;
+            /* Background moved to #luxury-bg for parallax */
+            background-color: transparent;
         }
 
         .glass-panel {
@@ -76,6 +204,7 @@
                 inset 0 0 15px rgba(255, 255, 255, 0.6),
                 0 10px 20px -5px rgba(42, 27, 24, 0.05);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Maintained original hover transition */
             position: relative;
             overflow: hidden;
         }
@@ -98,6 +227,7 @@
 
         .glass-card:hover {
             transform: translateY(-5px);
+            /* This will be overridden by JS tilt on move, but good fallback */
             background: rgba(255, 255, 255, 0.95);
             box-shadow:
                 inset 0 0 20px rgba(255, 255, 255, 0.8),
@@ -280,11 +410,29 @@
     </style>
 </head>
 
-<body class="text-brand-dark antialiased selection:bg-brand-gold selection:text-white">
+<body class="text-brand-dark antialiased selection:bg-brand-gold selection:text-white relative">
+
+    <!-- 1. Page Load Reveal Curtain -->
+    <div id="loader-curtain">
+        <div class="curtain-panel curtain-left"></div>
+        <div class="curtain-panel curtain-right"></div>
+        <div class="loader-text">VINDHYA</div>
+    </div>
+
+    <!-- 2. Animated Background Elements -->
+    <div id="luxury-bg-gradient"></div>
+    <div id="particles-js"></div>
+
+    <!-- ADDED: Scroll Progress Indicator -->
+    <div id="scroll-progress"></div>
+
+    <!-- ADDED: Parallax Background Container -->
+    <div id="luxury-bg"></div>
 
     <!-- GLASSMORPHISM NAVBAR -->
-    <nav
-        class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/70 backdrop-blur-md border-b border-brand-accent/30 shadow-sm">
+    <nav id="main-nav"
+        class="fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 bg-white/70 backdrop-blur-md border-b border-brand-accent/30 shadow-sm"
+        style="opacity: 1 !important; visibility: visible !important;">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <!-- Brand -->
             <a href="#home"
@@ -323,7 +471,8 @@
         <div class="absolute w-[600px] h-[600px] bg-brand-peach/20 rounded-full blur-[120px] -z-10 animate-pulse">
         </div>
 
-        <div class="relative z-10 glass-panel-premium p-10 md:p-20 rounded-[2.5rem] max-w-4xl animate-float">
+        <div
+            class="relative z-10 glass-panel-premium p-10 md:p-20 rounded-[2.5rem] max-w-4xl animate-float reveal-on-scroll">
             <span
                 class="inline-block py-2 px-6 border border-brand-gold/30 rounded-full text-brand-gold text-[10px] font-bold tracking-[0.3em] uppercase mb-10 bg-white/40 backdrop-blur-sm shadow-sm animate-fade-in-up">
                 DM Portfolio
@@ -355,12 +504,12 @@
     <!-- 2. ABOUT ME -->
     <section id="about" class="py-24 px-6 scroll-mt-20">
         <div class="container mx-auto max-w-5xl">
-            <div class="text-center">
+            <div class="text-center reveal-on-scroll">
                 <h2 class="text-4xl font-serif font-bold section-title">About Me</h2>
             </div>
             <!-- Glass Card -->
             <div
-                class="glass-panel p-10 md:p-14 rounded-2xl text-center md:text-left flex flex-col md:flex-row gap-12 items-center">
+                class="glass-panel p-10 md:p-14 rounded-2xl text-center md:text-left flex flex-col md:flex-row gap-12 items-center reveal-on-scroll">
                 <!-- Placeholder for Profile Image -->
                 <div
                     class="w-48 h-48 shrink-0 bg-brand-peach rounded-full overflow-hidden border-4 border-white shadow-xl shadow-brand-gold/10 relative group ring-1 ring-brand-accent/50">
@@ -387,13 +536,13 @@
     <!-- 3. PROJECT IN DM -->
     <section id="project" class="py-24 px-6 scroll-mt-20">
         <div class="container mx-auto max-w-6xl">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 reveal-on-scroll">
                 <h2 class="text-4xl font-serif font-bold section-title">Project in Digital Marketing</h2>
                 <p class="text-brand-dark/70 mt-4 font-medium tracking-wide">Integrated Marketing Campaign & Web
                     Development</p>
             </div>
 
-            <div class="glass-panel rounded-3xl p-8 md:p-12">
+            <div class="glass-panel rounded-3xl p-8 md:p-12 reveal-on-scroll">
                 <div class="grid md:grid-cols-12 gap-12 items-center">
                     <!-- Project Details -->
                     <div class="md:col-span-5 space-y-8">
@@ -450,20 +599,20 @@
                     <!-- Visuals (Screenshots) -->
                     <div class="md:col-span-7 grid gap-6">
                         <div
-                            class="rounded-xl overflow-hidden border border-brand-accent/50 shadow-2xl shadow-brand-gold/10 transform hover:scale-[1.01] transition duration-500">
+                            class="rounded-xl overflow-hidden border border-brand-accent/50 shadow-2xl shadow-brand-gold/10 transform hover:scale-[1.01] transition duration-500 reveal-on-scroll">
                             <img src="ilunara_hero_new.jpg"
                                 onerror="this.src='https://images.unsplash.com/photo-1556228720-19150573c9f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'"
                                 alt="iLunara Hero" class="w-full h-auto">
                         </div>
                         <div class="grid grid-cols-2 gap-6">
-                            <div
-                                class="rounded-xl overflow-hidden border border-brand-accent/50 shadow-xl shadow-brand-accent/10 transform hover:scale-[1.02] transition duration-500">
+                            <div class="rounded-xl overflow-hidden border border-brand-accent/50 shadow-xl shadow-brand-accent/10 transform hover:scale-[1.02] transition duration-500 reveal-on-scroll"
+                                style="transition-delay: 100ms;">
                                 <img src="ilunara_skin_concerns.jpg"
                                     onerror="this.src='https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"
                                     alt="Skin Concerns" class="w-full h-auto">
                             </div>
-                            <div
-                                class="rounded-xl overflow-hidden border border-brand-accent/50 shadow-xl shadow-brand-accent/10 transform hover:scale-[1.02] transition duration-500">
+                            <div class="rounded-xl overflow-hidden border border-brand-accent/50 shadow-xl shadow-brand-accent/10 transform hover:scale-[1.02] transition duration-500 reveal-on-scroll"
+                                style="transition-delay: 200ms;">
                                 <img src="ilunara_footer.jpg"
                                     onerror="this.src='https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"
                                     alt="Footer" class="w-full h-auto">
@@ -478,15 +627,15 @@
     <!-- 4. WHAT WE HAVE LEARNED (Syllabus) -->
     <section id="learnings" class="py-24 px-6 scroll-mt-20">
         <div class="container mx-auto max-w-6xl">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 reveal-on-scroll">
                 <h2 class="text-4xl font-serif font-bold section-title text-brand-dark">What I Have Learned</h2>
                 <p class="text-brand-dark/70 mt-4 font-medium">Key Modules & Takeaways</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Module 1 -->
-                <div
-                    class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all">
+                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all reveal-on-scroll"
+                    style="transition-delay: 100ms;">
                     <div
                         class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
                         01</div>
@@ -500,8 +649,8 @@
                 </div>
 
                 <!-- Module 2 -->
-                <div
-                    class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all">
+                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all reveal-on-scroll"
+                    style="transition-delay: 200ms;">
                     <div
                         class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
                         02</div>
@@ -515,8 +664,8 @@
                 </div>
 
                 <!-- Module 3 -->
-                <div
-                    class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all">
+                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all reveal-on-scroll"
+                    style="transition-delay: 300ms;">
                     <div
                         class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
                         03</div>
@@ -532,8 +681,8 @@
 
             <div class="flex flex-wrap justify-center gap-8 mt-8">
                 <!-- Module 4 -->
-                <div
-                    class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.35rem)]">
+                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.35rem)] reveal-on-scroll"
+                    style="transition-delay: 100ms;">
                     <div
                         class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
                         04</div>
@@ -547,8 +696,8 @@
                 </div>
 
                 <!-- Module 5 -->
-                <div
-                    class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.35rem)]">
+                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.35rem)] reveal-on-scroll"
+                    style="transition-delay: 200ms;">
                     <div
                         class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
                         05</div>
@@ -567,11 +716,11 @@
     <!-- 5. SKILLS IN DM -->
     <section id="skills" class="py-24 px-6 scroll-mt-20">
         <div class="container mx-auto max-w-4xl">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 reveal-on-scroll">
                 <h2 class="text-4xl font-serif font-bold section-title text-brand-dark">Skills in DM</h2>
             </div>
 
-            <div class="glass-panel p-10 rounded-3xl space-y-10">
+            <div class="glass-panel p-10 rounded-3xl space-y-10 reveal-on-scroll">
                 <!-- Skill Item -->
                 <div>
                     <div class="flex justify-between mb-2">
@@ -627,12 +776,13 @@
     <!-- 6. PROMOTION PLATFORMS -->
     <section id="platforms" class="py-24 px-6 platforms-mesh text-white scroll-mt-20 relative overflow-hidden">
         <div class="container mx-auto max-w-6xl text-center relative z-10">
-            <h2 class="text-5xl font-serif font-bold mb-6 text-white drop-shadow-md">Professional Promotion</h2>
+            <h2 class="text-5xl font-serif font-bold mb-6 text-white drop-shadow-md reveal-on-scroll">Professional
+                Promotion</h2>
             <div
-                class="w-24 h-1 bg-gradient-to-r from-brand-gold via-brand-accent to-brand-gold mx-auto mb-16 rounded-full opacity-80">
+                class="w-24 h-1 bg-gradient-to-r from-brand-gold via-brand-accent to-brand-gold mx-auto mb-16 rounded-full opacity-80 reveal-on-scroll">
             </div>
 
-            <p class="text-brand-peach/80 mb-16 font-light max-w-2xl mx-auto text-lg leading-relaxed">
+            <p class="text-brand-peach/80 mb-16 font-light max-w-2xl mx-auto text-lg leading-relaxed reveal-on-scroll">
                 Strategic brand presence established across premium social ecosystems for the <span
                     class="text-brand-accent font-medium">iLUNARA</span> campaign.
             </p>
@@ -641,7 +791,8 @@
                 <!-- Instagram -->
                 <a href="https://www.instagram.com/ilunara.skincare.official?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                     target="_blank" rel="noopener noreferrer"
-                    class="group block p-10 platform-card-premium rounded-[2rem] hover:z-10 animate-fade-in-up">
+                    class="group block p-10 platform-card-premium rounded-[2rem] hover:z-10 animate-fade-in-up reveal-on-scroll"
+                    style="transition-delay: 100ms;">
                     <div
                         class="w-16 h-16 bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:rotate-12 transition-transform duration-500 shadow-xl platform-icon-box">
                         <i data-lucide="instagram" class="w-8 h-8 text-white"></i>
@@ -657,7 +808,8 @@
 
                 <!-- Facebook -->
                 <a href="https://www.facebook.com/share/1DQjv4Zm4b/" target="_blank" rel="noopener noreferrer"
-                    class="group block p-10 platform-card-premium rounded-[2rem] hover:z-10 animate-fade-in-up animation-delay-200">
+                    class="group block p-10 platform-card-premium rounded-[2rem] hover:z-10 animate-fade-in-up reveal-on-scroll"
+                    style="transition-delay: 200ms;">
                     <div
                         class="w-16 h-16 bg-[#1877F2] rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:-rotate-12 transition-transform duration-500 shadow-xl platform-icon-box">
                         <i data-lucide="facebook" class="w-8 h-8 text-white fill-white"></i>
@@ -673,7 +825,8 @@
 
                 <!-- X / Twitter -->
                 <a href="https://x.com/VindhyaC51640" target="_blank" rel="noopener noreferrer"
-                    class="group block p-10 platform-card-premium rounded-[2rem] hover:z-10 animate-fade-in-up animation-delay-400">
+                    class="group block p-10 platform-card-premium rounded-[2rem] hover:z-10 animate-fade-in-up reveal-on-scroll"
+                    style="transition-delay: 300ms;">
                     <div
                         class="w-16 h-16 bg-black border border-white/20 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:rotate-12 transition-transform duration-500 shadow-xl platform-icon-box">
                         <span class="font-bold text-2xl text-white">X</span>
@@ -690,7 +843,8 @@
                 <!-- YouTube -->
                 <a href="https://youtube.com/@ilunara-skincare?si=Kv2a4AST1nNa42Qx" target="_blank"
                     rel="noopener noreferrer"
-                    class="group block p-10 platform-card-premium rounded-[2rem] hover:z-10 animate-fade-in-up animation-delay-600">
+                    class="group block p-10 platform-card-premium rounded-[2rem] hover:z-10 animate-fade-in-up reveal-on-scroll"
+                    style="transition-delay: 400ms;">
                     <div
                         class="w-16 h-16 bg-[#FF0000] rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:-rotate-12 transition-transform duration-500 shadow-xl platform-icon-box">
                         <svg viewBox="0 0 24 24" class="w-8 h-8 fill-white" xmlns="http://www.w3.org/2000/svg">
@@ -713,9 +867,10 @@
     <!-- 7. TOOLS USED -->
     <section id="tools" class="py-24 px-6 scroll-mt-20">
         <div class="container mx-auto max-w-4xl text-center">
-            <h2 class="text-4xl font-serif font-bold section-title text-brand-dark">Tools Used in DM</h2>
+            <h2 class="text-4xl font-serif font-bold section-title text-brand-dark reveal-on-scroll">Tools Used in DM
+            </h2>
 
-            <div class="flex flex-wrap justify-center gap-6 mt-10">
+            <div class="flex flex-wrap justify-center gap-6 mt-10 reveal-on-scroll">
                 <!-- AI & Innovation -->
                 <div class="px-8 py-5 glass-card rounded-2xl flex items-center gap-3 hover:scale-105 transition">
                     <i data-lucide="zap" class="text-brand-gold"></i> <span
@@ -794,11 +949,9 @@
         </div>
     </section>
 
-
-
     <!-- 8. LET'S CONNECT -->
     <footer id="contact" class="py-24 px-6 text-center scroll-mt-20">
-        <div class="glass-panel max-w-2xl mx-auto rounded-3xl p-12 relative overflow-hidden">
+        <div class="glass-panel max-w-2xl mx-auto rounded-3xl p-12 relative overflow-hidden reveal-on-scroll">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-gold to-brand-accent"></div>
             <h2 class="text-5xl font-serif font-bold mb-8 text-brand-dark">Let's Connect</h2>
             <p class="text-brand-dark/80 text-lg mb-12">
@@ -822,44 +975,146 @@
         </div>
     </footer>
 
+    <!-- Three.js & Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
     <!-- Initialize Icons & Premium Animations -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize Icons
+            // 1. Initialize Icons
             lucide.createIcons();
 
-            // Premium Name Reveal Logic (Robust Fix)
+            // 2. Page Load Reveal Curtain (GSAP)
+            const tl = gsap.timeline();
+            tl.to(".loader-text", { opacity: 1, duration: 0.5, ease: "power2.inOut" })
+                .to(".loader-text", { opacity: 0, duration: 0.3, delay: 0.2, ease: "power2.inOut" })
+                .to(".curtain-left", { x: "-100%", duration: 0.8, ease: "expo.inOut" }, "reveal")
+                .to(".curtain-right", { x: "100%", duration: 0.8, ease: "expo.inOut" }, "reveal")
+                .to("#loader-curtain", { autoAlpha: 0, duration: 0.2, display: "none", pointerEvents: "none" })
+                .from("#main-nav", { y: -50, opacity: 0, duration: 0.6, ease: "power4.out", clearProps: "all" }, "-=0.2")
+                .from("#home .reveal-on-scroll", { opacity: 0, y: 30, duration: 0.6, stagger: 0.1, ease: "power4.out" }, "-=0.3");
+
+            // 3. Particles.js Initialization
+            tsParticles.load("particles-js", {
+                particles: {
+                    number: { value: 40, density: { enable: true, value_area: 800 } },
+                    color: { value: "#722F37" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.2, random: true },
+                    size: { value: 3, random: true },
+                    move: { enable: true, speed: 1, direction: "none", random: true, straight: false, out_mode: "out" }
+                }
+            });
+
+            // 4. Vanilla-tilt Initialization for Cards
+            VanillaTilt.init(document.querySelectorAll(".glass-card"), {
+                max: 5,
+                speed: 400,
+                glare: true,
+                "max-glare": 0.2,
+                perspective: 1000,
+                scale: 1.02
+            });
+
+            // 5. Three.js Immersive Background (Subtle Silk Mesh)
+            const initThree = () => {
+                const container = document.getElementById('luxury-bg');
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ alpha: true });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                container.appendChild(renderer.domElement);
+
+                const geometry = new THREE.PlaneGeometry(20, 10, 50, 50);
+                const material = new THREE.MeshBasicMaterial({ color: 0x722F37, wireframe: true, transparent: true, opacity: 0.03 });
+                const mesh = new THREE.Mesh(geometry, material);
+                scene.add(mesh);
+
+                camera.position.z = 5;
+
+                const animate = function () {
+                    requestAnimationFrame(animate);
+                    const time = Date.now() * 0.0005;
+                    // Update vertices for wave effect
+                    for (let i = 0; i < mesh.geometry.attributes.position.array.length; i += 3) {
+                        const x = mesh.geometry.attributes.position.array[i];
+                        const y = mesh.geometry.attributes.position.array[i + 1];
+                        mesh.geometry.attributes.position.array[i + 2] = Math.sin(x * 0.5 + time) * Math.cos(y * 0.5 + time) * 0.5;
+                    }
+                    mesh.geometry.attributes.position.needsUpdate = true; // Important for Three.js r128+
+                    renderer.render(scene, camera);
+                };
+                animate();
+
+                window.addEventListener('resize', () => {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+            };
+            if (window.THREE) initThree();
+
+            // 6. Premium Name Reveal Logic (Modified to trigger after curtain)
             const heroName = document.getElementById('hero-name');
             if (heroName) {
                 const text = heroName.textContent.trim();
-                heroName.innerHTML = ''; // Clear text
-
-                // Create document fragment for better performance
+                heroName.innerHTML = '';
                 const fragment = document.createDocumentFragment();
 
                 [...text].forEach((char, i) => {
                     const span = document.createElement('span');
                     span.textContent = char === ' ' ? '\u00A0' : char;
                     span.className = 'letter';
-                    // Stagger the animation delay
                     span.style.transitionDelay = `${(i * 0.05) + 0.1}s`;
                     fragment.appendChild(span);
                 });
 
                 heroName.appendChild(fragment);
-
-                // Force a browser reflow to ensure the initial 'opacity: 0' state is registered
-                void heroName.offsetWidth;
-
-                // Add the revealed class to trigger the CSS transition
-                // Using requestAnimationFrame to synchronize with browser paint
-                requestAnimationFrame(() => {
-                    const letters = heroName.querySelectorAll('.letter');
-                    letters.forEach(letter => {
-                        letter.classList.add('revealed');
-                    });
-                });
             }
+
+            // 7. Scroll Progress Bar
+            const progressBar = document.getElementById('scroll-progress');
+            let ticking = false;
+
+            function updateScroll() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+                if (progressBar) {
+                    const scrollPercent = (scrollTop / docHeight) * 100;
+                    progressBar.style.width = `${scrollPercent}%`;
+                }
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateScroll);
+                    ticking = true;
+                }
+            });
+
+            // 8. Scroll Reveal Animation
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-visible');
+                        if (entry.target.contains(heroName)) {
+                            const letters = heroName.querySelectorAll('.letter');
+                            letters.forEach(letter => letter.classList.add('revealed'));
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
         });
     </script>
 </body>

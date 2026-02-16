@@ -177,6 +177,80 @@
             will-change: transform;
         }
 
+        /* 2. Digital Nexus Canvas Styles */
+        #nexus-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        /* Subtle Noise Overlay for premium texture */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+            /* Slightly more noise for visibility */
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* 3. Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #C5A059, #722F37);
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+            box-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
+        }
+
+        /* 4. Parallax Background Layer */
+        #luxury-bg {
+            position: fixed;
+            top: -10%;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            /* Taller than viewport for movement */
+            z-index: -1;
+            background-color: transparent;
+            will-change: transform;
+            pointer-events: none;
+        }
+
+        /* 5. Scroll Reveal Classes */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 6. 3D Tilt Prep */
+        .glass-card {
+            /* Existing styles below, adding transform props */
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            will-change: transform;
+        }
+
         /* --- NEW ANIMATION STYLES END --- */
 
         body {
@@ -407,6 +481,48 @@
             z-index: -1;
             border-radius: inherit;
         }
+
+        /* iLUNARA Skincare Campaign Styles */
+        .campaign-visual-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(114, 47, 55, 0.2);
+            transition: all 0.5s ease;
+        }
+
+        .campaign-visual-container:hover {
+            transform: scale(1.02);
+            border-color: rgba(197, 160, 89, 0.8);
+            box-shadow: 0 20px 40px -15px rgba(114, 47, 55, 0.3);
+        }
+
+        .video-placeholder {
+            background: linear-gradient(135deg, #2a1b18 0%, #1a0f0e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            aspect-ratio: 16 / 9;
+        }
+
+        .play-overlay {
+            width: 60px;
+            height: 60px;
+            background: rgba(197, 160, 89, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
+        }
+
+        .video-placeholder:hover .play-overlay {
+            transform: scale(1.2);
+            background: #C5A059;
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.6);
+        }
     </style>
 </head>
 
@@ -444,10 +560,11 @@
             <div
                 class="hidden md:flex items-center space-x-8 text-xs font-bold tracking-widest uppercase text-brand-dark/70">
                 <a href="#about" class="hover:text-brand-gold transition duration-300">About</a>
-                <a href="#project" class="hover:text-brand-gold transition duration-300">Project</a>
                 <a href="#learnings" class="hover:text-brand-gold transition duration-300">Learnings</a>
                 <a href="#skills" class="hover:text-brand-gold transition duration-300">Skills</a>
+                <a href="#project" class="hover:text-brand-gold transition duration-300">Project</a>
                 <a href="#platforms" class="hover:text-brand-gold transition duration-300">Marketing</a>
+                <a href="#interview-rehearsal" class="hover:text-brand-gold transition duration-300">Teamwork</a>
                 <a href="#tools" class="hover:text-brand-gold transition duration-300">Tools</a>
             </div>
 
@@ -533,6 +650,169 @@
         </div>
     </section>
 
+
+
+    <!-- 4. WHAT WE HAVE LEARNED (Syllabus) -->
+    <section id="learnings" class="py-24 px-6 scroll-mt-20">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="text-4xl font-serif font-bold section-title text-brand-dark">What I Have Learned</h2>
+                <p class="text-brand-dark/70 mt-4 font-medium">Key Modules & Takeaways</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Module 1 -->
+                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all reveal-on-scroll"
+                    style="transition-delay: 100ms;">
+                    <div
+                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
+                        01</div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Fundamentals & SEO</h3>
+                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
+                        <li>Marketing Funnel & Digital Disruption</li>
+                        <li>On-Page SEO (Keywords, Meta Tags)</li>
+                        <li>Off-Page SEO (Backlinking, Quality)</li>
+                        <li>Technical SEO (Robots.txt, Sitemaps)</li>
+                    </ul>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all reveal-on-scroll"
+                    style="transition-delay: 200ms;">
+                    <div
+                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
+                        02</div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Google Algorithms</h3>
+                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
+                        <li>Panda, Penguin, Hummingbird Updates</li>
+                        <li>RankBrain, BERT, Core Web Vitals</li>
+                        <li>E-E-A-T Principles</li>
+                        <li>Spam Updates & Content Quality</li>
+                    </ul>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all reveal-on-scroll"
+                    style="transition-delay: 300ms;">
+                    <div
+                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
+                        03</div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Performance Marketing</h3>
+                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
+                        <li>Google Analytics (GA4) Metrics</li>
+                        <li>Google Ads Structure & Bidding</li>
+                        <li>Quality Score & Ad Rank</li>
+                        <li>PPC Strategy (CPC, CPA, CPM)</li>
+                    </ul>
+                </div>
+
+                <!-- Module 4 -->
+                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all reveal-on-scroll"
+                    style="transition-delay: 400ms;">
+                    <div
+                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
+                        04</div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Social Media (SMM)</h3>
+                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
+                        <li>Facebook & Instagram Algorithms</li>
+                        <li>LinkedIn B2B Strategies</li>
+                        <li>3H Framework (Hero, Hub, Hygiene)</li>
+                        <li>Content Calendars & Audits</li>
+                    </ul>
+                </div>
+
+                <!-- Module 5 -->
+                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all reveal-on-scroll"
+                    style="transition-delay: 500ms;">
+                    <div
+                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
+                        05</div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Integrated Marketing</h3>
+                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
+                        <li>IMC Planning Process</li>
+                        <li>Email Marketing (Segmentation)</li>
+                        <li>Content Marketing Strategy</li>
+                        <li>Channel Mix & Budgeting</li>
+                    </ul>
+                </div>
+
+                <!-- Module 6 -->
+                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all reveal-on-scroll"
+                    style="transition-delay: 600ms;">
+                    <div
+                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
+                        06</div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-dark">AI & Automation</h3>
+                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
+                        <li>AI-Driven Content Creation</li>
+                        <li>Marketing Automation Workflows</li>
+                        <li>Predictive Analytics & AI Tools</li>
+                        <li>Chatbots & Customer Engagement</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SKILLS IN DM -->
+    <section id="skills" class="py-24 px-6 scroll-mt-20">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="text-4xl font-serif font-bold section-title text-brand-dark">Skills in DM</h2>
+            </div>
+
+            <div class="glass-panel p-10 rounded-3xl space-y-10 reveal-on-scroll">
+                <!-- Skill Item -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-bold text-brand-dark">Website Creation & Designing</span>
+                        <span class="text-brand-gold font-serif">95%</span>
+                    </div>
+                    <div class="h-4 bg-white/60 w-full rounded-full overflow-hidden border border-white/80">
+                        <div
+                            class="h-full bg-gradient-to-r from-brand-gold to-brand-accent w-[95%] shadow-[0_0_15px_rgba(114,47,55,0.4)]">
+                        </div>
+                    </div>
+                </div>
+                <!-- Skill Item -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-bold text-brand-dark">Social Media Marketing (SMM)</span>
+                        <span class="text-brand-gold font-serif">90%</span>
+                    </div>
+                    <div class="h-4 bg-white/60 w-full rounded-full overflow-hidden border border-white/80">
+                        <div
+                            class="h-full bg-gradient-to-r from-brand-gold to-brand-accent w-[90%] shadow-[0_0_15px_rgba(114,47,55,0.4)]">
+                        </div>
+                    </div>
+                </div>
+                <!-- Skill Item -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-bold text-brand-dark">Content Creation & Branding</span>
+                        <span class="text-brand-gold font-serif">85%</span>
+                    </div>
+                    <div class="h-4 bg-white/60 w-full rounded-full overflow-hidden border border-white/80">
+                        <div
+                            class="h-full bg-gradient-to-r from-brand-gold to-brand-accent w-[85%] shadow-[0_0_15px_rgba(114,47,55,0.4)]">
+                        </div>
+                    </div>
+                </div>
+                <!-- Skill Item -->
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-bold text-brand-dark">SEO Strategy (On-Page & Off-Page)</span>
+                        <span class="text-brand-gold font-serif">88%</span>
+                    </div>
+                    <div class="h-4 bg-white/60 w-full rounded-full overflow-hidden border border-white/80">
+                        <div
+                            class="h-full bg-gradient-to-r from-brand-gold to-brand-accent w-[88%] shadow-[0_0_15px_rgba(114,47,55,0.4)]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- 3. PROJECT IN DM -->
     <section id="project" class="py-24 px-6 scroll-mt-20">
         <div class="container mx-auto max-w-6xl">
@@ -624,148 +904,77 @@
         </div>
     </section>
 
-    <!-- 4. WHAT WE HAVE LEARNED (Syllabus) -->
-    <section id="learnings" class="py-24 px-6 scroll-mt-20">
+    <!-- NEW SECTION: iLUNARA.skincare Promotions & Content -->
+    <section id="ilunara-marketing" class="py-24 px-6 bg-white/30 backdrop-blur-sm scroll-mt-20">
         <div class="container mx-auto max-w-6xl">
             <div class="text-center mb-16 reveal-on-scroll">
-                <h2 class="text-4xl font-serif font-bold section-title text-brand-dark">What I Have Learned</h2>
-                <p class="text-brand-dark/70 mt-4 font-medium">Key Modules & Takeaways</p>
+                <h2 class="text-5xl font-serif font-bold section-title text-brand-dark">iLUNARA.skincare</h2>
+                <p class="text-brand-dark/70 mt-4 font-medium tracking-wide">Brand Promotions & Creative Marketing
+                    Content</p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Module 1 -->
-                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all reveal-on-scroll"
-                    style="transition-delay: 100ms;">
-                    <div
-                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
-                        01</div>
-                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Fundamentals & SEO</h3>
-                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
-                        <li>Marketing Funnel & Digital Disruption</li>
-                        <li>On-Page SEO (Keywords, Meta Tags)</li>
-                        <li>Off-Page SEO (Backlinking, Quality)</li>
-                        <li>Technical SEO (Robots.txt, Sitemaps)</li>
-                    </ul>
-                </div>
-
-                <!-- Module 2 -->
-                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all reveal-on-scroll"
-                    style="transition-delay: 200ms;">
-                    <div
-                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
-                        02</div>
-                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Google Algorithms</h3>
-                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
-                        <li>Panda, Penguin, Hummingbird Updates</li>
-                        <li>RankBrain, BERT, Core Web Vitals</li>
-                        <li>E-E-A-T Principles</li>
-                        <li>Spam Updates & Content Quality</li>
-                    </ul>
-                </div>
-
-                <!-- Module 3 -->
-                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all reveal-on-scroll"
-                    style="transition-delay: 300ms;">
-                    <div
-                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
-                        03</div>
-                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Performance Marketing</h3>
-                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
-                        <li>Google Analytics (GA4) Metrics</li>
-                        <li>Google Ads Structure & Bidding</li>
-                        <li>Quality Score & Ad Rank</li>
-                        <li>PPC Strategy (CPC, CPA, CPM)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap justify-center gap-8 mt-8">
-                <!-- Module 4 -->
-                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.35rem)] reveal-on-scroll"
-                    style="transition-delay: 100ms;">
-                    <div
-                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
-                        04</div>
-                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Social Media (SMM)</h3>
-                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
-                        <li>Facebook & Instagram Algorithms</li>
-                        <li>LinkedIn B2B Strategies</li>
-                        <li>3H Framework (Hero, Hub, Hygiene)</li>
-                        <li>Content Calendars & Audits</li>
-                    </ul>
-                </div>
-
-                <!-- Module 5 -->
-                <div class="glass-card p-8 rounded-2xl group border-t-4 border-t-transparent hover:border-t-brand-gold transition-all w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.35rem)] reveal-on-scroll"
-                    style="transition-delay: 200ms;">
-                    <div
-                        class="text-brand-gold font-serif text-5xl opacity-40 mb-4 transition duration-500 group-hover:text-brand-accent">
-                        05</div>
-                    <h3 class="text-xl font-bold mb-3 text-brand-dark">Integrated Marketing</h3>
-                    <ul class="text-sm text-brand-dark/80 space-y-2 list-disc list-inside">
-                        <li>IMC Planning Process</li>
-                        <li>Email Marketing (Segmentation)</li>
-                        <li>Content Marketing Strategy</li>
-                        <li>Channel Mix & Budgeting</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. SKILLS IN DM -->
-    <section id="skills" class="py-24 px-6 scroll-mt-20">
-        <div class="container mx-auto max-w-4xl">
-            <div class="text-center mb-16 reveal-on-scroll">
-                <h2 class="text-4xl font-serif font-bold section-title text-brand-dark">Skills in DM</h2>
-            </div>
-
-            <div class="glass-panel p-10 rounded-3xl space-y-10 reveal-on-scroll">
-                <!-- Skill Item -->
-                <div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-bold text-brand-dark">Website Creation & Designing</span>
-                        <span class="text-brand-gold font-serif">95%</span>
+            <!-- Campaign Visuals Showcase -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="campaign-visual-container reveal-on-scroll" style="transition-delay: 100ms;">
+                    <img src="green_pos.jpeg" alt="iLUNARA Luxury Brand Identity" class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                        <p class="text-white font-bold text-sm tracking-widest uppercase">Hero Visual</p>
                     </div>
-                    <div class="h-4 bg-white/60 w-full rounded-full overflow-hidden border border-white/80">
-                        <div
-                            class="h-full bg-gradient-to-r from-brand-gold to-brand-accent w-[95%] shadow-[0_0_15px_rgba(114,47,55,0.4)]">
+                </div>
+                <div class="campaign-visual-container reveal-on-scroll" style="transition-delay: 200ms;">
+                    <video src="promo_vid.mp4" class="w-full h-full object-cover" autoplay loop muted
+                        playsinline></video>
+
+                    <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                        <p class="text-white font-bold text-sm tracking-widest uppercase">Targeted Promotion</p>
+                    </div>
+                </div>
+                <div class="campaign-visual-container reveal-on-scroll" style="transition-delay: 300ms;">
+                    <img src="promo_pos.jpeg" alt="Brand Trust & Conversion Design" class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                        <p class="text-white font-bold text-sm tracking-widest uppercase">Digital Footprint</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Content Showcase -->
+            <div class="glass-panel p-8 md:p-12 rounded-3xl reveal-on-scroll">
+                <div class="flex flex-col md:flex-row gap-12 items-center">
+                    <div class="md:w-1/2 space-y-6">
+                        <h3 class="text-3xl font-serif font-bold text-brand-gold">Promotional Video Content</h3>
+                        <p class="text-brand-dark/80 leading-relaxed text-lg">
+                            Visual storytelling is at the heart of the iLUNARA campaign. From short-form reels to
+                            educational brand videos, I created content that resonates with the premium audience.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-brand-dark/70">
+                                <i data-lucide="check-circle" class="text-brand-accent w-5 h-5"></i>
+                                <span>High-impact brand story videos</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-brand-dark/70">
+                                <i data-lucide="check-circle" class="text-brand-accent w-5 h-5"></i>
+                                <span>Product demonstration highlights</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-brand-dark/70">
+                                <i data-lucide="check-circle" class="text-brand-accent w-5 h-5"></i>
+                                <span>Engagement-focused social reels</span>
+                            </div>
+                        </div>
+                        <div class="pt-4">
+                            <a href="https://youtube.com/@ilunara-skincare?si=Kv2a4AST1nNa42Qx" target="_blank"
+                                class="inline-flex items-center gap-2 px-8 py-4 btn-burgundy font-bold tracking-widest uppercase text-xs rounded-full transform hover:-translate-y-1">
+                                View YouTube Channel <i data-lucide="youtube" class="w-4 h-4"></i>
+                            </a>
                         </div>
                     </div>
-                </div>
-                <!-- Skill Item -->
-                <div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-bold text-brand-dark">Social Media Marketing (SMM)</span>
-                        <span class="text-brand-gold font-serif">90%</span>
-                    </div>
-                    <div class="h-4 bg-white/60 w-full rounded-full overflow-hidden border border-white/80">
-                        <div
-                            class="h-full bg-gradient-to-r from-brand-gold to-brand-accent w-[90%] shadow-[0_0_15px_rgba(114,47,55,0.4)]">
-                        </div>
-                    </div>
-                </div>
-                <!-- Skill Item -->
-                <div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-bold text-brand-dark">Content Creation & Branding</span>
-                        <span class="text-brand-gold font-serif">85%</span>
-                    </div>
-                    <div class="h-4 bg-white/60 w-full rounded-full overflow-hidden border border-white/80">
-                        <div
-                            class="h-full bg-gradient-to-r from-brand-gold to-brand-accent w-[85%] shadow-[0_0_15px_rgba(114,47,55,0.4)]">
-                        </div>
-                    </div>
-                </div>
-                <!-- Skill Item -->
-                <div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-bold text-brand-dark">SEO Strategy (On-Page & Off-Page)</span>
-                        <span class="text-brand-gold font-serif">88%</span>
-                    </div>
-                    <div class="h-4 bg-white/60 w-full rounded-full overflow-hidden border border-white/80">
-                        <div
-                            class="h-full bg-gradient-to-r from-brand-gold to-brand-accent w-[88%] shadow-[0_0_15px_rgba(114,47,55,0.4)]">
+
+                    <div class="md:w-1/2 grid grid-cols-1 gap-6">
+                        <!-- New: Local Video Player -->
+                        <div class="video-placeholder rounded-2xl overflow-hidden group relative">
+                            <video src="ilunara_video.mp4" class="w-full h-full object-cover" controls
+                                poster="ilunara_hero_new.jpg">
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
                     </div>
                 </div>
@@ -776,8 +985,8 @@
     <!-- 6. PROMOTION PLATFORMS -->
     <section id="platforms" class="py-24 px-6 platforms-mesh text-white scroll-mt-20 relative overflow-hidden">
         <div class="container mx-auto max-w-6xl text-center relative z-10">
-            <h2 class="text-5xl font-serif font-bold mb-6 text-white drop-shadow-md reveal-on-scroll">Professional
-                Promotion</h2>
+            <h2 class="text-5xl font-serif font-bold mb-6 text-white drop-shadow-md reveal-on-scroll">Marketing &
+                Promotions</h2>
             <div
                 class="w-24 h-1 bg-gradient-to-r from-brand-gold via-brand-accent to-brand-gold mx-auto mb-16 rounded-full opacity-80 reveal-on-scroll">
             </div>
@@ -863,6 +1072,96 @@
             </div>
         </div>
     </section>
+
+
+
+    <!-- NEW SECTION: Ongoing Team Project: The Interview Rehearsal -->
+    <section id="interview-rehearsal" class="py-24 px-6 scroll-mt-20">
+        <div class="container mx-auto max-w-6xl">
+            <div
+                class="w-fit mx-auto py-1 px-4 border border-brand-gold/30 rounded-full text-brand-gold text-[10px] font-bold tracking-[0.2em] uppercase mb-6 bg-white/40">
+                Ongoing Team Project
+            </div>
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="text-5xl font-serif font-bold section-title text-brand-dark">The Interview Rehearsal</h2>
+
+                <p class="text-brand-dark/70 mt-4 font-medium tracking-wide max-w-3xl mx-auto text-lg leading-relaxed">
+                    An AI-powered platform designed to revolutionize interview preparation. By providing realistic
+                    simulations,
+                    real-time sentiment analysis, and personalized feedback, we empower candidates to build confidence
+                    and master their presentation skills.
+                </p>
+            </div>
+
+            <!-- Project Visuals -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="campaign-visual-container reveal-on-scroll" style="transition-delay: 100ms;">
+                    <img src="ir.main.png" alt="The Interview Rehearsal Main Interface"
+                        class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                        <p class="text-white font-bold text-sm tracking-widest uppercase">Dashboard</p>
+                    </div>
+                </div>
+                <div class="campaign-visual-container reveal-on-scroll" style="transition-delay: 200ms;">
+                    <img src="ir2.png" alt="AI Interview Simulation" class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                        <p class="text-white font-bold text-sm tracking-widest uppercase">Interview Session</p>
+                    </div>
+                </div>
+                <div class="campaign-visual-container reveal-on-scroll" style="transition-delay: 300ms;">
+                    <img src="ir3.png" alt="Performance Analytics" class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                        <p class="text-white font-bold text-sm tracking-widest uppercase">Analysis & Feedback</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-8 md:p-12 rounded-3xl reveal-on-scroll">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-3xl font-serif font-bold text-brand-gold mb-6">Key Engineering Features</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-brand-peach p-2 rounded-lg text-brand-gold shrink-0">
+                                    <i data-lucide="cpu" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-brand-dark">AI-Powered Simulations</h4>
+                                    <p class="text-brand-dark/70 text-sm">Dynamic question generation based on job roles
+                                        and candidate background.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="bg-brand-peach p-2 rounded-lg text-brand-gold shrink-0">
+                                    <i data-lucide="gauge" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-brand-dark">Real-time Analytics</h4>
+                                    <p class="text-brand-dark/70 text-sm">Instant sentiment analysis and speech-to-text
+                                        processing for immediate results.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="bg-brand-peach p-2 rounded-lg text-brand-gold shrink-0">
+                                    <i data-lucide="bar-chart" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-brand-dark">Detailed Feedback Reports</h4>
+                                    <p class="text-brand-dark/70 text-sm">Comprehensive scoring across multiple
+                                        dimensions like body language, tone, and content quality.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden shadow-2xl border border-brand-accent/20">
+                        <img src="ir.main.png" alt="Platform Overview"
+                            class="w-full h-auto transform hover:scale-105 transition duration-700">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- 7. TOOLS USED -->
     <section id="tools" class="py-24 px-6 scroll-mt-20">
@@ -1075,7 +1374,7 @@
                 heroName.appendChild(fragment);
             }
 
-            // 7. Scroll Progress Bar
+            // 5. Scroll Progress Bar
             const progressBar = document.getElementById('scroll-progress');
             let ticking = false;
 
@@ -1097,7 +1396,7 @@
                 }
             });
 
-            // 8. Scroll Reveal Animation
+            // 6. Scroll Reveal Animation
             const revealElements = document.querySelectorAll('.reveal-on-scroll');
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
